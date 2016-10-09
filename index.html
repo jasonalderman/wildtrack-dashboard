@@ -1,0 +1,643 @@
+<html>
+	<head>
+		<title>map!</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/ion.rangeSlider.css" />
+		<link rel="stylesheet" type="text/css" href="css/ion.rangeSlider.skinFlat.css" />
+		<style>
+* {
+	box-sizing: border-box;
+	margin: 0; padding: 0;
+}
+html, body { 
+	margin: 0; 
+	padding: 0;
+}
+body {
+	background-color: #ffde00; 
+}
+#mapid { 
+	height: 85vh;
+	width: 60vw;
+	display: inline-block;
+}
+#date_range { 
+	position: absolute; 
+	bottom: 0; 
+	left: 0; 
+	right: 0; 
+	height: 10vh; 
+	padding-top: 3px; 
+	box-sizing: border-box; 
+}
+#search_filter { 
+	height: 5vh; 
+	line-height: 1.2em; 
+	padding: 4px 0.75em; 
+	margin: 0;
+	background-color: #ffde00;
+	border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+ul.toggle_buttons { 
+	list-style: none; 
+	display: inline-block; 
+	margin: 0; padding: 0;
+	line-height: 1.2em;
+}
+ul.toggle_buttons li { 
+	display: inline-block; 
+	padding: 3px 0.5em; 
+	border-right: 1px solid rgba(0,0,0,0.4);
+	border-top: 1px solid rgba(0,0,0,0.4);
+	margin: 0;
+	background: rgba(0,0,0,0.2);
+	cursor: pointer;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	user-select: none;           /* Non-prefixed version, currently
+	                              not supported by any browser */
+}
+ul.toggle_buttons li.selected {
+	background: black;
+	color: white;
+	border-top: 1px solid rgba(0,0,0,1);
+}
+ul.toggle_buttons li:first-child {
+	border-radius: 5px 0 0 5px;
+/* 	border: 1px solid blue; */
+}
+ul.toggle_buttons li:last-child {
+	border-radius: 0 5px 5px 0;
+	border-right: none;
+}
+ul.toggle_buttons li::before {
+	content: '';
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	display: inline-block;
+	margin-right: 0.3em;
+/*
+	border: 1px solid rgba(255,255,255,0.5);
+	border-radius: 100%;
+*/
+	box-shadow: 0 1px 0 rgba(255,255,255,1) inset, 0 1px 0 rgba(0,0,0,0.5);
+}
+ul.toggle_buttons li.human::before {
+	background: #0000FF;
+}
+ul.toggle_buttons li.weapon::before {
+	background: #FF0000;
+}
+ul.toggle_buttons li.trap::before {
+	background: #FFA500;
+}
+ul.toggle_buttons li.animal::before {
+	background: #74ed82;
+}
+
+
+input[type="search"] {
+	padding: 0 0.1em 0 0.5em;
+	border-radius: 0.75em;
+	border: 1px solid #999999;
+	line-height: 1.2em;
+	height: 1.5em;
+	float: right;
+	display: block;
+}
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: searchfield-cancel-button;
+}
+input[type="search"]:focus {
+	border: solid 1px blue;
+	outline: none;
+}
+#incidentList{
+  width: 400px;
+  border: 1px solid grey;
+}
+#all_incidents{
+	display: inline-block;
+	width: 40vw;
+	height: 85vh;
+	overflow-y: scroll;
+	background: #f0f0f0;
+	border-left: 1px solid #ddd;
+}
+table {
+	font-size: 0.875em;
+	padding: 0.5em;
+	margin: 0.5em;
+	text-align: left;
+}
+th {
+	text-transform: uppercase;
+	font-size: 0.875em;
+}
+.ttime {
+	width: 18%;
+}
+.tx,.ty {
+	width: 15%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding-right: 5px;
+}
+.thuman {
+	padding-right: 5px;
+}
+table tr {
+	padding: 0.5em 0;
+	height: 40px;
+}
+table th {
+	vertical-align: bottom;
+}
+table thead {
+	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
+}
+table thead tr {
+	border-bottom: 1px solid #666;
+}
+table td {
+	vertical-align: top;
+}
+		</style>
+	</head>
+	<body>
+		<div id="search_filter">
+			<label>Filters: </label>
+			<ul class="toggle_buttons">
+				<li class="human selected">Human</li><li class="weapon selected">Weapon</li><li class="trap selected">Trap</li><li class="animal selected">Animal</li>
+			</ul>
+			<input type="search" placeholder="search terms" id="search" />
+		</div>
+		<div id="mapid"></div><div id="all_incidents"></div>
+		<div id="date_range"></div>
+   	<script id="smart-template" type="text/x-handlebars-template">
+			<table class="table table-striped">
+			    <thead>
+			    <tr>
+<!-- 			        <th>Incident</th> -->
+			        <th class="ttime">Time</th>
+			        <th class="tx">X</th>
+			        <th class="ty">Y</th>
+			        <th class="thuman">Human Activities</th>
+			        <th class="tanimals">Animals</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    {{#each incident}}
+			    <tr>
+<!-- 			        <td>{{ this.Incident }}</td> -->
+			        <td class="ttime">{{ formatTime this.timestamp }}</td>
+			        <td class="tx">{{ this.X }}</td>
+			        <td class="ty">{{ this.Y }}</td>
+			        <td class="thuman">{{ this.human-activities }}</td>
+			        <td class="tanimals"">{{ this.animals }}</td>
+			    </tr>
+			    {{/each}}
+			    </tbody>
+			</table>
+		</script> 
+	</body>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/leaflet.js"></script>
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+	<script type="text/javascript" src="js/moment.min.js"></script>
+	<script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/handlebarsjs/4.0.5/handlebars.min.js"></script>
+<!--     <script type="text/javascript" src="js/my-script.js"></script> -->
+	<script language="JavaScript" type="text/javascript">
+	<!--
+	Handlebars.registerHelper('formatTime', function(dts) {
+	  return moment(dts).format("DDMMMYY\n HH:mm:ss");
+	});
+	
+	$(document).ready(function(){
+		// *** TOGGLE BUTTONS
+		$('ul.toggle_buttons li').on('click', function() { 
+			var $this = $(this);
+			if ($this.hasClass('selected')) {
+				$this.removeClass('selected');
+			} else {
+				$this.addClass('selected');
+			}
+		})
+	});
+
+var dataModel;
+	var filteredDataView;
+
+	var loadedFakeData = false;
+	var fakeData;
+
+	var humanCategories = ["fishing tools", "spent cartridges", "people", "cutting tools"];
+	var weaponCategories = ["firearm", "ammunition"];
+	var trapCategories = ["trap", "poison"];
+	var selectedAnimal = "";
+
+	var filterFlags = [true, true, true, true];
+	
+	var toDate = new Date();
+    var fromDate = new Date();
+    fromDate.setYear(2015);
+
+    toDate = moment(toDate);
+    fromDate = moment(fromDate);
+
+	//fakeData.json'
+	// Take in the static JS data and apply sort filter
+	 function loadJSON(callback, endpoint, loadingFakeData=false) {   
+
+	    console.log("Creating GET request for JSON");
+
+	    var xobj = new XMLHttpRequest();
+	        xobj.overrideMimeType("application/json");
+	    xobj.open('GET', endpoint, true); // Replace 'my_data' with the path to your file
+	    xobj.onreadystatechange = function () {
+	         // / if (xobj.readyState == 4 && 
+	          	if ((xobj.readyState == 4) && (xobj.status == "200") ) {
+	            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+	            console.log("Fetched data");
+	            callback(xobj.responseText, loadingFakeData);
+	          }
+	          // else{
+	          //   console.log("Could not fetch data! Status " + xobj.status);
+	          // }
+	    };
+	    xobj.send(null);  
+	 }
+
+	  function updateDataModel(response, loadingFakeData){
+
+	    if (loadingFakeData){
+	        if (!loadedFakeData){
+	            fakeData = JSON.parse(response);
+
+	            for (var i = 0; i < fakeData.length; i++){
+
+	            	// change from string to unix? or to moment?
+	            	fakeData[i]["timestamp"] = fakeData[i]["TimeStamp"];
+	            }
+
+	            dataModel = fakeData;
+	            updateView();
+	            filterTest();
+	            return;
+	        }
+	    }
+
+	    var serverData = JSON.parse(response);
+	    console.log("raw server data ", response);
+
+	    // Perform split
+	    for (var i = 0; i < serverData.length; i++){
+
+	    	var data = serverData[i];
+
+	    	console.log("new data from server ", data);
+	    }
+
+	    console.log("Fetched " + serverData.length + " datapoints from server.");
+
+	    dataModel = fakeData.concat(serverData);
+	    console.log("Total datapoints is " + dataModel.length);
+	    console.log("total data model ", dataModel);
+	    updateView();
+	 }
+
+	 function filterDataModel(from, to, bHuman, bWeapon, bTrap, bAnimal, selectedAnimal){
+
+    console.log("Filtering data model " + dataModel.length);
+
+    var activeCategories = new Array();
+
+
+    // Human, trap, weapon, live animal, dead animal
+    if (bHuman === true){ 
+        activeCategories = activeCategories.concat(humanCategories); 
+    }
+
+    if (bWeapon === true){ activeCategories = activeCategories.concat(weaponCategories); }
+    if (bTrap === true){ activeCategories = activeCategories.concat(trapCategories); }
+    // activeCategories = activeCategories.push(selectedAnimal); 
+
+    console.log("Active categories: " + activeCategories);
+
+    var filteredModel = _.filter(dataModel, function(report) {
+
+        // return false;
+        var allParams = report["animals"].concat(report["human-activities"]);
+
+
+        console.log("is moment " + typeof(report["timestamp"]));
+        console.log(report["timestamp"]);
+        console.log(report);
+
+        var mDate = moment(report["timestamp"]);
+
+        // console.log(mDate.format('MMMM Do YYYY, h:mm:ss a'));
+        var cat = getCat( report );
+        var showData = false;
+
+        // is cat an enabled category?
+        if (bHuman && (cat == 0)){ showData = true;}
+        if (bWeapon && (cat == 1)){ showData = true;}
+        if (bTrap && (cat == 2)){ showData = true;}
+        if (bAnimal && (cat == 3)){ showData = true;}
+
+
+        if (/\S/.test(selectedAnimal)) {
+	        if (!_.contains(report["animals"], selectedAnimal)){
+        		showData = false;
+        	}
+        }
+
+            // var dateMatch = (mDate.isBefore(to) && mDate.isAfter(from));
+            var dateMatch = mDate.isAfter(from);
+
+            if (showData && dateMatch){
+                return true;
+            } 
+        
+        return false;
+    });
+
+    var sortedModel = _.sortBy(filteredModel, function(report) {
+        return moment(report["timestamp"]);
+    });
+
+    // Sort data model by filtered model
+    return sortedModel.reverse();
+ }
+
+	 // Function to test several filters
+	function filterTest(){
+
+	    var to = new Date();
+	    var from = new Date();
+	    from.setYear(2015);
+
+	    to = moment(to);
+	    from = moment(from);
+
+
+	    console.log("Date range:");
+	    console.log(to.format('MMMM Do YYYY, h:mm:ss a') );
+	    console.log(from.format('MMMM Do YYYY, h:mm:ss a') );
+
+	    var humanFilter = filterDataModel(from, to, true, false, false, false, selectedAnimal);
+	    console.log("HUMAN FILTER " + humanFilter.length);
+
+	    var trapFilter = filterDataModel(from, to, false, false, true, false, selectedAnimal);
+	    console.log("TRAP FILTER " + trapFilter.length);
+
+	    var weaponFilter = filterDataModel(from, to, false, true, false, false, selectedAnimal);
+	    console.log("WEAPON FILTER: " + weaponFilter.length);
+
+	    var animalFilter = filterDataModel(from, to, false, false, false, true, selectedAnimal);
+	    console.log("ANIMAL FILTER: LION " + animalFilter.length);
+
+	    var trapAnimalFilter = filterDataModel(from, to, false, false, true, true, selectedAnimal);
+	    console.log("TRAP ANIMAL FILTER: LION, RHINO " + trapAnimalFilter.length);
+
+	}
+
+	function pollData(){
+	    
+	    console.log("Polling for data!");
+
+	    if (!loadedFakeData){
+	       loadJSON(updateDataModel, "fakeData.json", true);
+	    }
+
+	    loadJSON(updateDataModel, "https://159f22bc.ngrok.io/incidents", false);
+	}
+
+	console.log("Polling fake data");
+	pollData();
+	setInterval(pollData, 5000);
+
+	<!--
+	// *** MAP
+	// replace "toner" here with "terrain" or "watercolor"
+	var overlayData;
+	var layer = new L.StamenTileLayer("terrain");
+	var map = new L.Map("mapid", {
+	    center: new L.LatLng(0.505920, 37.848560),
+	    zoom: 7
+	});
+	map.addLayer(layer);
+
+		// draw the boundaries
+	// create a red polyline from an array of LatLng points
+	$.getJSON('isiola_geo.json', function(data){
+		overlayData = data;
+		L.geoJSON(data).addTo(map);
+	});
+
+	function clearMap() {
+
+		map.eachLayer(function(l) {
+
+			if (l !== layer){
+				l.remove();
+			}
+	
+		});
+
+		// Re-Add overlay (hacky)
+		if (overlayData){
+			L.geoJSON(overlayData).addTo(map);
+		}
+	}
+
+	function getCat( datapoint ){
+
+		var catList = datapoint["human-activities"];
+
+
+		if (catList && (catList.length > 0)){
+
+			var val = catList[0];
+
+			if (_.contains(humanCategories, val)){
+				return 0;
+			}else if (_.contains(weaponCategories, val)){
+				return 1;
+			}else if (_.contains(trapCategories, val)){
+				return 2;
+			}else if (datapoint["animals"].length > 0){
+				return 3;
+			}
+
+		}
+
+		return -1;	
+	}
+
+	function getColor( datapoint ){
+
+		// Classify as human, weapon, trap, animal
+		var catList = datapoint["human-activities"];
+
+
+		if (catList && (catList.length > 0)){
+
+			var val = catList[0];
+
+			if (_.contains(humanCategories, val)){
+				return "#0000FF";
+			}else if (_.contains(weaponCategories, val)){
+				return "#FF0000";
+			}else if (_.contains(trapCategories, val)){
+				return "#FFA500";
+			}else{
+				return "#74ed82";
+			}
+
+		}
+
+		return "#74ed82";
+		// Weapon is red, human is blue, animal magenta, trap orange
+	}
+
+	function updateView(){
+
+		console.log("Updating view for all widgets!");
+		// Clear map
+
+		clearMap();
+
+		// Update filtered view of data
+		filteredDataView = filterDataModel(fromDate, toDate, filterFlags[0], filterFlags[1], filterFlags[2], filterFlags[3], []);
+
+		// Add circles to the map
+		for (var i = 0; i < filteredDataView.length; i++){
+
+			var datapoint = filteredDataView[i];
+
+			if (getCat(datapoint) > -1){
+
+				var circle = L.circle([datapoint["X"], datapoint["Y"]], {
+				    color: getColor(datapoint),
+				    fillColor: getColor(datapoint),
+				    fillOpacity: 0.5,
+				    radius: 5000
+				}).addTo(map);
+				console.log("Adding to map");
+			}else{
+				console.log("NO CATEGORY MATCH ", datapoint);
+			}
+
+			// console.log(datapoint);
+		}
+		
+		console.log("length " + filteredDataView.length);
+		console.log("Passing filtered data to list view ", filteredDataView);
+		// Update text there
+		SMART_METHOD.handlerData(filteredDataView);
+	}
+	
+	// *** SLIDER
+	var slider = $("#date_range").ionRangeSlider({
+		type: "double",
+		grid: true,
+		min: +moment("01/01/2016","MM-DD-YYYY").format("X"),
+    max: +moment("10/09/2016","MM-DD-YYYY").format("X"),
+    prettify: function (num) {
+// 	    	console.log(moment(num, "X"));
+				var d = moment(num, "X").format("YYYY-MM-DD");
+// 				console.log(d);
+	    	return moment(num, "X").format("YYYY-MM-DD");
+//         return moment(num, "X").format("MMM Do, hh:mm A");
+    },    
+    force_edges: true,
+    drag_interval: true,
+	});
+	
+	slider.on("change", function () {
+
+		console.log("Slider changed");
+		// console.log(slider.data());
+
+		var sliderData = slider.data();
+		
+
+		fromDate = moment(sliderData.from * 1000);
+		toDate = moment(sliderData.to * 1000);
+
+		
+		console.log(fromDate.format('MMMM Do YYYY, h:mm:ss a'));
+		console.log(toDate.format('MMMM Do YYYY, h:mm:ss a'));
+		
+
+
+		updateView();
+	});
+
+	$(" ul.toggle_buttons li").click(function() {
+		var flagName =  $(this).text();
+		var filterIndex =  $(this).index();
+		var filterState = filterFlags[filterIndex] = !filterFlags[filterIndex];
+
+		console.log("Current value of " + flagName + " is " + filterState);
+
+		updateView();
+	});
+	
+	var SMART_METHOD ={
+
+        handlerData:function(data){
+            console.log("resJSON is", data);
+            console.log("res data len " + data.length);
+            var templateSource   = $("#smart-template").html();
+
+            var template = Handlebars.compile(templateSource);
+
+            var smartHTML = template({"incident":data});
+
+           $('#all_incidents').html(smartHTML);
+
+       
+        },
+        loadRangerData : function(){
+
+            $.ajax({
+                url:"fakeData.json",
+                method:'get',
+                cache: false,
+                dataType: 'json',
+                success:this.handlerData,
+                //success:function(data){ console.log(data); },
+                error:function(o,s,data){ console.log(o,s,data); },
+            })
+        }
+	};
+	
+
+
+	$(document).ready(function(){
+	
+		$('#search').on('keypress', function(){
+
+			selectedAnimal = $(this).val();
+			updateView();
+			// console.log('DID THE THING');
+
+		});
+	    //SMART_METHOD.loadRangerData();
+	});
+
+	
+	//-->
+	</script>
+</html>

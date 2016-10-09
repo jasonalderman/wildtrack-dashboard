@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>map!</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/ion.rangeSlider.css" />
+		<link rel="stylesheet" type="text/css" href="css/ion.rangeSlider.skinFlat.css" />
+		<style>
+			html, body { margin: 0; padding: 0;}
+			#mapid { height: 85vh;}
+			#date_range { position: absolute; z-index: 5000; background: green; bottom: 0; left: 0; right: 0; height: 10vh; padding-top: 3px; box-sizing: border-box; }
+			#search_filter { height: 5vh; line-height: 1.2em; padding: 0; margin: 0;}
+			ul.toggle_buttons { list-style: none; display: inline-block; outline: 1px solid red;}
+			ul.toggle_buttons li { display: inline-block; margin-right: 1em;}
+		</style>
+	</head>
+	<body>
+		<div id="search_filter">
+			<label>Filters: </label><ul class="toggle_buttons"><li><input type="checkbox" /> Human</li><li><input type="checkbox" /> Weapon</li><li><input type="checkbox" /> Trap</li><li><input type="checkbox" /> Animal</li></ul>
+			<input type="search" placeholder="search terms" />
+		</div>
+		<div id="mapid"></div>
+		<div id="date_range"></div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/leaflet.js"></script>
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+	<script type="text/javascript" src="js/moment.min.js"></script>
+	<script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
+	<script language="JavaScript" type="text/javascript">
+	<!--
+	// *** MAP
+	// replace "toner" here with "terrain" or "watercolor"
+	var layer = new L.StamenTileLayer("terrain");
+	var map = new L.Map("mapid", {
+	    center: new L.LatLng(0.505920, 37.848560),
+	    zoom: 7
+	});
+	map.addLayer(layer);
+	
+	// draw the boundaries
+	// create a red polyline from an array of LatLng points
+	$.getJSON('isiola_geo.json', function(data){
+		L.geoJSON(data).addTo(map);
+	});
+
+	
+	
+	// *** SLIDER
+	$("#date_range").ionRangeSlider({
+		type: "double",
+		grid: true,
+		min: +moment("01/01/2016","MM-DD-YYYY").format("X"),
+    max: +moment("10/09/2016","MM-DD-YYYY").format("X"),
+    prettify: function (num) {
+        return moment(num, "X").format("MMM Do, hh:mm A");
+    },    
+    force_edges: true,
+    drag_interval: true,
+	});
+	
+	//-->
+	</script>
+</html>

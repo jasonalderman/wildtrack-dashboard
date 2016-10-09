@@ -1,0 +1,502 @@
+[
+ {
+"Incident": 0,
+	
+	"TimeStamp": "2016-04-05T03:17.000-04:00",
+	"X": "0.682029",
+	"Y": "37.886963",
+	"human-activities": ["firearm"],
+	"animals": ["cheetah"]
+	
+},
+{
+"Incident": 1,
+	
+	"TimeStamp": "2016-08-01T19:30.000-04:00",
+	"X": "0.351105",
+	"Y": "37.586212",
+	"human-activities": [],
+	"animals": ["duiker"]
+	
+},
+{
+"Incident": 2,
+	
+	"TimeStamp": "2016-02-28T3:41.000-04:00",
+	"X": "0.531197",
+	"Y": "38.04988",
+	"human-activities": ["trap"],
+	"animals": ["duiker"]
+	
+},
+{
+"Incident": 3,
+	
+	"TimeStamp": "2016-09-15T6:28.000-04:00",
+	"X": "0.605321",
+	"Y": "38.266838",
+	"human-activities": ["poison"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 4,
+	
+	"TimeStamp": "2016-06-17T1:34.000-04:00",
+	"X": "0.051855",
+	"Y": "37.645573",
+	"human-activities": ["trap"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 5,
+	
+	"TimeStamp": "2016-09-20T20:23.000-04:00",
+	"X": "0.242435",
+	"Y": "37.71666",
+	"human-activities": [],
+	"animals": ["african wild dog"]
+	
+},
+{
+"Incident": 6,
+	
+	"TimeStamp": "2016-01-25T5:55.000-04:00",
+	"X": "0.335688",
+	"Y": "38.195557",
+	"human-activities": ["spent cartrdiges"],
+	"animals": ["leopard"]
+	
+},
+{
+"Incident": 7,
+	
+	"TimeStamp": "2016-06-04T14:41.000-04:00",
+	"X": "0.457895",
+	"Y": "38.116665",
+	"human-activities": ["poison"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 8,
+	
+	"TimeStamp": "2016-04-28T1:53.000-04:00",
+	"X": "0.142923",
+	"Y": "37.59957",
+	"human-activities": ["spent cartrdiges"],
+	"animals": ["african wild dog"]
+	
+},
+{
+"Incident": 9,
+	
+	"TimeStamp": "2016-06-09T14:22.000-04:00",
+	"X": "1.853525",
+	"Y": "38.76468",
+	"human-activities": ["fishing tools"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 10,
+	
+	"TimeStamp": "2016-11-11T20:26.000-04:00",
+	"X": "0.450278",
+	"Y": "37.76426",
+	"human-activities": ["people"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 11,
+	
+	"TimeStamp": "2016-11-20T0:45.000-04:00",
+	"X": "0.159609",
+	"Y": "37.810577",
+	"human-activities": ["cutting tools"],
+	"animals": ["african wild dog"]
+	
+},
+{
+"Incident": 12,
+	
+	"TimeStamp": "2016-01-16T13:33.000-04:00",
+	"X": "0.432184",
+	"Y": "37.944782",
+	"human-activities": ["people"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 13,
+	
+	"TimeStamp": "2016-02-19T15:09.000-04:00",
+	"X": "0.682029",
+	"Y": "37.886963",
+	"human-activities": ["trap"],
+	"animals": ["zebra"]
+	
+},
+{
+"Incident": 14,
+	
+	"TimeStamp": "2016-08-10T05:18.000-04:00",
+	"X": "0.427234",
+	"Y": "37.829456",
+	"human-activities": ["ammunition"],
+	"animals": ["hirola"]
+	
+},
+{
+"Incident": 15,
+	
+	"TimeStamp": "2016-06-1T18:06.000-04:00",
+	"X": "0.50148",
+	"Y": "37.643803",
+	"human-activities": ["people"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 16,
+	
+	"TimeStamp": "2016-03-15T16:44.000-04:00",
+	"X": "0.665292",
+	"Y": "37.70762",
+	"human-activities": ["poison"],
+	"animals": ["cheetah"]
+	
+},
+{
+"Incident": 17,
+	
+	"TimeStamp": "2016-04-02T00:42.000-04:00",
+	"X": "0.567568",
+	"Y": "38.33325",
+	"human-activities": ["cutting tools"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 18,
+	
+	"TimeStamp": "2016-01-027T03:57.000-04:00",
+	"X": "0.660327",
+	"Y": "37.926632",
+	"human-activities": ["trap"],
+	"animals": ["african wild dog"]
+	
+},
+{
+"Incident": 19,
+	
+	"TimeStamp": "2016-03-01T19:56.000-04:00",
+	"X": "0.318172",
+	"Y": "37.933315",
+	"human-activities": ["trap"],
+	"animals": ["cheetah"]
+	
+},
+{
+"Incident": 20,
+	
+	"TimeStamp": "2016-05-06T08:47.000-04:00",
+	"X": "0.351105",
+	"Y": "37.586212",
+	"human-activities": [],
+	"animals": ["hippo"]
+	
+},
+{
+"Incident": 21,
+	
+	"TimeStamp": "2016-06-29T05:13.000-04:00",
+	"X": "0.635941",
+	"Y": "37.70372",
+	"human-activities": ["cutting tools"],
+	"animals": ["cheetah"]
+	
+},
+{
+"Incident": 22,
+	
+	"TimeStamp": "2016-10-18T21:36.000-04:00",
+	"X": "0.457895",
+	"Y": "38.116665",
+	"human-activities": ["cutting tools"],
+	"animals": ["zebra"]
+	
+},
+{
+"Incident": 23,
+	
+	"TimeStamp": "2016-02-04T22:13.000-04:00",
+	"X": "0.571772",
+	"Y": "38.380356",
+	"human-activities": ["cutting tools"],
+	"animals": ["zebra"]
+	
+},
+{
+"Incident": 24,
+	
+	"TimeStamp": "2016-10-01T20:47.000-04:00",
+	"X": "0.648369",
+	"Y": "38.034866",
+	"human-activities": ["poison"],
+	"animals": ["duiker"]
+	
+},
+{
+"Incident": 25,
+	
+	"TimeStamp": "2016-08-30T07:46.000-04:00",
+	"X": "0.571772",
+	"Y": "38.380356",
+	"human-activities": ["fishing tools"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 26,
+	
+	"TimeStamp": "2016-06-16T16:45.000-04:00",
+	"X": "0.355009",
+	"Y": "37.922806",
+	"human-activities": ["cutting tools"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 27,
+	
+	"TimeStamp": "2016-06-23T7:21.000-04:00",
+	"X": "0.335688",
+	"Y": "38.195557",
+	"human-activities": ["cutting tools"],
+	"animals": ["duiker"]
+	
+},
+{
+"Incident": 28,
+	
+	"TimeStamp": "2016-08-21T20:16.000-04:00",
+	"X": "0.567568",
+	"Y": "38.33325",
+	"human-activities": ["cutting tools"],
+	"animals": ["elephant"]
+	
+},
+{
+"Incident": 29,
+	
+	"TimeStamp": "2016-02-05T11:40.000-04:00",
+	"X": "0.318172",
+	"Y": "37.933315",
+	"human-activities": ["spent cartrdiges"],
+	"animals": ["hippo"]
+	
+},
+{
+"Incident": 30,
+	
+	"TimeStamp": "2016-02-11T18:48.000-04:00",
+	"X": "0.450278",
+	"Y": "37.76426",
+	"human-activities": ["poison"],
+	"animals": ["african wild dog"]
+	
+},
+{
+"Incident": 31,
+	
+	"TimeStamp": "2016-05-25T0:04.000-04:00",
+	"X": "1.853525",
+	"Y": "38.76468",
+	"human-activities": ["spent cartrdiges"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 32,
+	
+	"TimeStamp": "2016-11-02T22:17.000-04:00",
+	"X": "0.257888",
+	"Y": "37.898476",
+	"human-activities": ["spent cartrdiges"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 33,
+	
+	"TimeStamp": "2016-05-10T20:30.000-04:00",
+	"X": "0.051855",
+	"Y": "37.645573",
+	"human-activities": ["people"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 34,
+	
+	"TimeStamp": "2016-02-26T09:24.000-04:00",
+	"X": "0.531197",
+	"Y": "38.04988",
+	"human-activities": ["ammunition"],
+	"animals": ["cheetah"]
+	
+},
+{
+"Incident": 35,
+	
+	"TimeStamp": "2016-01-03T19:57.000-04:00",
+	"X": "0.681134",
+	"Y": "38.016155",
+	"human-activities": ["cutting tools"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 36,
+	
+	"TimeStamp": "2016-09-13T08:22.000-04:00",
+	"X": "0.605321",
+	"Y": "38.266838",
+	"human-activities": ["fishing tools"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 37,
+	
+	"TimeStamp": "2016-11-21T19:29.000-04:00",
+	"X": "0.318172",
+	"Y": "37.933315",
+	"human-activities": ["cutting tools"],
+	"animals": ["elephant"]
+	
+},
+{
+"Incident": 38,
+	
+	"TimeStamp": "2016-07-28T18:42.000-04:00",
+	"X": "0.519025",
+	"Y": "38.025875",
+	"human-activities": ["people"],
+	"animals": ["elephant"]
+	
+},
+{
+"Incident": 39,
+	
+	"TimeStamp": "2016-02-22T16:03.000-04:00",
+	"X": "0.121032",
+	"Y": "37.83685",
+	"human-activities": ["firearm"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 40,
+	
+	"TimeStamp": "2016-06-05T13:25.000-04:00",
+	"X": "0.142923",
+	"Y": "37.59957",
+	"human-activities": [],
+	"animals": ["hirola"]
+	
+},
+{
+"Incident": 41,
+	
+	"TimeStamp": "2016-01-13T16:59.000-04:00",
+	"X": "0.665292",
+	"Y": "37.70762",
+	"human-activities": [],
+	"animals": ["leopard"]
+	
+},
+{
+"Incident": 42,
+	
+	"TimeStamp": "2016-10-11T03:33.000-04:00",
+	"X": "0.764506",
+	"Y": "38.12916",
+	"human-activities": ["trap"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 43,
+	
+	"TimeStamp": "2016-09-23T21:39.000-04:00",
+	"X": "0.051855",
+	"Y": "37.645573",
+	"human-activities": ["people"],
+	"animals": ["rhino"]
+	
+},
+{
+"Incident": 44,
+	
+	"TimeStamp": "2016-11-16T05:48.000-04:00",
+	"X": "0.567568",
+	"Y": "38.33325",
+	"human-activities": ["ammunition"],
+	"animals": ["giraffe"]
+	
+},
+{
+"Incident": 45,
+	
+	"TimeStamp": "2016-02-20T17:40.000-04:00",
+	"X": "0.812674",
+	"Y": "37.676926",
+	"human-activities": [],
+	"animals": ["duiker"]
+	
+},
+{
+"Incident": 46,
+	
+	"TimeStamp": "2016-03-21T16:39.000-04:00",
+	"X": "0.295218",
+	"Y": "37.880978",
+	"human-activities": [],
+	"animals": ["leopard"]
+	
+},
+{
+"Incident": 47,
+	
+	"TimeStamp": "2016-01-07T09:09.000-04:00",
+	"X": "0.121032",
+	"Y": "37.83685",
+	"human-activities": ["people"],
+	"animals": ["lion"]
+	
+},
+{
+"Incident": 48,
+	
+	"TimeStamp": "2016-05-13T16:11.000-04:00",
+	"X": "0.351105",
+	"Y": "37.586212",
+	"human-activities": ["trap"],
+	"animals": ["hirola"]
+	
+},
+{
+"Incident": 49,
+	
+	"TimeStamp": "2016-09-08T15:11.000-04:00",
+	"X": "0.567568",
+	"Y": "38.33325",
+	"human-activities": ["people"],
+	"animals": ["hippo"]
+	
+}
+]
